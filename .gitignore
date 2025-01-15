@@ -1,7 +1,23 @@
-*.png", 
-*.json", "*.png
+# Python
+__pycache__/
+*.py[cod]
+
+# Poetry
+poetry.lock
+
+# Chaves de API
 *.json
-*.json
+
+# Imagens
 *.png
-vision-key.json
-vision-key.json
+*.jpg
+*.jpeg
+*.bmp
+*.tiff
+data/BID Sample Dataset/*  # Ignorar imagens específicas dessa pasta
+
+# Resultados gerados
+results/output.json
+
+# Outros
+.env
