@@ -1,0 +1,10 @@
+{"executionId": "90e722f6-4d9d-454d-b12b-a73696dfc8be", "createdAt": "2025-01-17T20:47:59.261707Z", "event": "stdout", "payload": {"text": "[ABSTRA] 2025-01-17 17:47:59 - Execution started"}, "sequence": 63}
+{"executionId": "90e722f6-4d9d-454d-b12b-a73696dfc8be", "createdAt": "2025-01-17T20:47:59.267071Z", "event": "stdout", "payload": {"text": "\n"}, "sequence": 64}
+{"executionId": "90e722f6-4d9d-454d-b12b-a73696dfc8be", "createdAt": "2025-01-17T20:47:59.370676Z", "event": "stderr", "payload": {"text": "Traceback (most recent call last):\n"}, "sequence": 65}
+{"executionId": "90e722f6-4d9d-454d-b12b-a73696dfc8be", "createdAt": "2025-01-17T20:47:59.375109Z", "event": "stderr", "payload": {"text": ""}, "sequence": 66}
+{"executionId": "90e722f6-4d9d-454d-b12b-a73696dfc8be", "createdAt": "2025-01-17T20:47:59.376980Z", "event": "stderr", "payload": {"text": "  File \"/home/victoriareis/\u00c1rea de Trabalho/formacao/vision_api_project/mvp_.py\", line 4, in <module>\n    from process_document import process_document\n"}, "sequence": 67}
+{"executionId": "90e722f6-4d9d-454d-b12b-a73696dfc8be", "createdAt": "2025-01-17T20:47:59.380669Z", "event": "stderr", "payload": {"text": ""}, "sequence": 68}
+{"executionId": "90e722f6-4d9d-454d-b12b-a73696dfc8be", "createdAt": "2025-01-17T20:47:59.382721Z", "event": "stderr", "payload": {"text": "ModuleNotFoundError: No module named 'process_document'\n"}, "sequence": 69}
+{"executionId": "90e722f6-4d9d-454d-b12b-a73696dfc8be", "createdAt": "2025-01-17T20:47:59.385941Z", "event": "stderr", "payload": {"text": ""}, "sequence": 70}
+{"executionId": "90e722f6-4d9d-454d-b12b-a73696dfc8be", "createdAt": "2025-01-17T20:47:59.539745Z", "event": "stdout", "payload": {"text": "[ABSTRA] 2025-01-17 17:47:59 - Execution failed"}, "sequence": 71}
+{"executionId": "90e722f6-4d9d-454d-b12b-a73696dfc8be", "createdAt": "2025-01-17T20:47:59.549610Z", "event": "stdout", "payload": {"text": "\n"}, "sequence": 72}

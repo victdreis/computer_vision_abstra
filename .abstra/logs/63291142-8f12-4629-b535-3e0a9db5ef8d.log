@@ -1,0 +1,5 @@
+{"executionId": "63291142-8f12-4629-b535-3e0a9db5ef8d", "createdAt": "2025-01-17T19:13:32.239916Z", "event": "stdout", "payload": {"text": "[ABSTRA] 2025-01-17 16:13:32 - Execution started"}, "sequence": 1}
+{"executionId": "63291142-8f12-4629-b535-3e0a9db5ef8d", "createdAt": "2025-01-17T19:13:32.241774Z", "event": "stdout", "payload": {"text": "\n"}, "sequence": 2}
+{"executionId": "63291142-8f12-4629-b535-3e0a9db5ef8d", "createdAt": "2025-01-17T19:13:48.171397Z", "event": "stderr", "payload": {"text": "[2025-01-17 16:13:48,171][WARNING][abstra_internal] Task with payload {'name': 'a'} was deleted, no transitions were satisfied with the type: greeting\n"}, "sequence": 3}
+{"executionId": "63291142-8f12-4629-b535-3e0a9db5ef8d", "createdAt": "2025-01-17T19:14:13.889805Z", "event": "stdout", "payload": {"text": "[ABSTRA] 2025-01-17 16:14:13 - Execution abandoned"}, "sequence": 4}
+{"executionId": "63291142-8f12-4629-b535-3e0a9db5ef8d", "createdAt": "2025-01-17T19:14:13.944740Z", "event": "stdout", "payload": {"text": "\n"}, "sequence": 5}

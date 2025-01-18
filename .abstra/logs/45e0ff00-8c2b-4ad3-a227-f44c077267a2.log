@@ -1,0 +1,10 @@
+{"executionId": "45e0ff00-8c2b-4ad3-a227-f44c077267a2", "createdAt": "2025-01-17T20:49:28.664455Z", "event": "stdout", "payload": {"text": "[ABSTRA] 2025-01-17 17:49:28 - Execution started"}, "sequence": 73}
+{"executionId": "45e0ff00-8c2b-4ad3-a227-f44c077267a2", "createdAt": "2025-01-17T20:49:28.681952Z", "event": "stdout", "payload": {"text": "\n"}, "sequence": 74}
+{"executionId": "45e0ff00-8c2b-4ad3-a227-f44c077267a2", "createdAt": "2025-01-17T20:49:28.692030Z", "event": "stderr", "payload": {"text": "Traceback (most recent call last):\n"}, "sequence": 75}
+{"executionId": "45e0ff00-8c2b-4ad3-a227-f44c077267a2", "createdAt": "2025-01-17T20:49:28.706618Z", "event": "stderr", "payload": {"text": ""}, "sequence": 76}
+{"executionId": "45e0ff00-8c2b-4ad3-a227-f44c077267a2", "createdAt": "2025-01-17T20:49:28.711635Z", "event": "stderr", "payload": {"text": "  File \"/home/victoriareis/\u00c1rea de Trabalho/formacao/vision_api_project/mvp_.py\", line 4, in <module>\n    from vision_api_project.process_document.py import process_document\n"}, "sequence": 77}
+{"executionId": "45e0ff00-8c2b-4ad3-a227-f44c077267a2", "createdAt": "2025-01-17T20:49:28.715149Z", "event": "stderr", "payload": {"text": ""}, "sequence": 78}
+{"executionId": "45e0ff00-8c2b-4ad3-a227-f44c077267a2", "createdAt": "2025-01-17T20:49:28.721199Z", "event": "stderr", "payload": {"text": "ModuleNotFoundError: No module named 'vision_api_project.process_document.py'; 'vision_api_project.process_document' is not a package\n"}, "sequence": 79}
+{"executionId": "45e0ff00-8c2b-4ad3-a227-f44c077267a2", "createdAt": "2025-01-17T20:49:28.731848Z", "event": "stderr", "payload": {"text": ""}, "sequence": 80}
+{"executionId": "45e0ff00-8c2b-4ad3-a227-f44c077267a2", "createdAt": "2025-01-17T20:49:28.904295Z", "event": "stdout", "payload": {"text": "[ABSTRA] 2025-01-17 17:49:28 - Execution failed"}, "sequence": 81}
+{"executionId": "45e0ff00-8c2b-4ad3-a227-f44c077267a2", "createdAt": "2025-01-17T20:49:28.916178Z", "event": "stdout", "payload": {"text": "\n"}, "sequence": 82}

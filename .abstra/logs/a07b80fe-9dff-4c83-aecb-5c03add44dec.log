@@ -1,0 +1,12 @@
+{"executionId": "a07b80fe-9dff-4c83-aecb-5c03add44dec", "createdAt": "2025-01-17T20:31:18.264103Z", "event": "stdout", "payload": {"text": "[ABSTRA] 2025-01-17 17:31:18 - Execution started"}, "sequence": 5}
+{"executionId": "a07b80fe-9dff-4c83-aecb-5c03add44dec", "createdAt": "2025-01-17T20:31:18.274361Z", "event": "stdout", "payload": {"text": "\n"}, "sequence": 6}
+{"executionId": "a07b80fe-9dff-4c83-aecb-5c03add44dec", "createdAt": "2025-01-17T20:31:18.350542Z", "event": "stderr", "payload": {"text": "  File \"/home/victoriareis/\u00c1rea de Trabalho/formacao/vision_api_project/mvp_.py\", line 8\n"}, "sequence": 7}
+{"executionId": "a07b80fe-9dff-4c83-aecb-5c03add44dec", "createdAt": "2025-01-17T20:31:18.357153Z", "event": "stderr", "payload": {"text": ""}, "sequence": 8}
+{"executionId": "a07b80fe-9dff-4c83-aecb-5c03add44dec", "createdAt": "2025-01-17T20:31:18.359206Z", "event": "stderr", "payload": {"text": "    uploaded_file = af.read_file(\u201c\u2b07\ufe0f Por favor, envie o arquivo que deseja processar:\u201d)\n"}, "sequence": 9}
+{"executionId": "a07b80fe-9dff-4c83-aecb-5c03add44dec", "createdAt": "2025-01-17T20:31:18.364802Z", "event": "stderr", "payload": {"text": ""}, "sequence": 10}
+{"executionId": "a07b80fe-9dff-4c83-aecb-5c03add44dec", "createdAt": "2025-01-17T20:31:18.367673Z", "event": "stderr", "payload": {"text": "                                 ^\n"}, "sequence": 11}
+{"executionId": "a07b80fe-9dff-4c83-aecb-5c03add44dec", "createdAt": "2025-01-17T20:31:18.370192Z", "event": "stderr", "payload": {"text": ""}, "sequence": 12}
+{"executionId": "a07b80fe-9dff-4c83-aecb-5c03add44dec", "createdAt": "2025-01-17T20:31:18.372119Z", "event": "stderr", "payload": {"text": "SyntaxError: invalid character '\u201c' (U+201C)\n"}, "sequence": 13}
+{"executionId": "a07b80fe-9dff-4c83-aecb-5c03add44dec", "createdAt": "2025-01-17T20:31:18.373576Z", "event": "stderr", "payload": {"text": ""}, "sequence": 14}
+{"executionId": "a07b80fe-9dff-4c83-aecb-5c03add44dec", "createdAt": "2025-01-17T20:31:18.495000Z", "event": "stdout", "payload": {"text": "[ABSTRA] 2025-01-17 17:31:18 - Execution failed"}, "sequence": 15}
+{"executionId": "a07b80fe-9dff-4c83-aecb-5c03add44dec", "createdAt": "2025-01-17T20:31:18.501918Z", "event": "stdout", "payload": {"text": "\n"}, "sequence": 16}

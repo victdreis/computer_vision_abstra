@@ -1,0 +1,12 @@
+{"executionId": "65186913-392b-4d25-a9ed-3b24e17d1778", "createdAt": "2025-01-17T20:32:07.959170Z", "event": "stdout", "payload": {"text": "[ABSTRA] 2025-01-17 17:32:07 - Execution started"}, "sequence": 17}
+{"executionId": "65186913-392b-4d25-a9ed-3b24e17d1778", "createdAt": "2025-01-17T20:32:07.963939Z", "event": "stdout", "payload": {"text": "\n"}, "sequence": 18}
+{"executionId": "65186913-392b-4d25-a9ed-3b24e17d1778", "createdAt": "2025-01-17T20:32:08.023977Z", "event": "stderr", "payload": {"text": "  File \"/home/victoriareis/\u00c1rea de Trabalho/formacao/vision_api_project/mvp_.py\", line 20\n"}, "sequence": 19}
+{"executionId": "65186913-392b-4d25-a9ed-3b24e17d1778", "createdAt": "2025-01-17T20:32:08.031762Z", "event": "stderr", "payload": {"text": ""}, "sequence": 20}
+{"executionId": "65186913-392b-4d25-a9ed-3b24e17d1778", "createdAt": "2025-01-17T20:32:08.038014Z", "event": "stderr", "payload": {"text": "    resultado=process.text visible and with send any information json\n"}, "sequence": 21}
+{"executionId": "65186913-392b-4d25-a9ed-3b24e17d1778", "createdAt": "2025-01-17T20:32:08.042922Z", "event": "stderr", "payload": {"text": ""}, "sequence": 22}
+{"executionId": "65186913-392b-4d25-a9ed-3b24e17d1778", "createdAt": "2025-01-17T20:32:08.053228Z", "event": "stderr", "payload": {"text": "                           ^\n"}, "sequence": 23}
+{"executionId": "65186913-392b-4d25-a9ed-3b24e17d1778", "createdAt": "2025-01-17T20:32:08.058526Z", "event": "stderr", "payload": {"text": ""}, "sequence": 24}
+{"executionId": "65186913-392b-4d25-a9ed-3b24e17d1778", "createdAt": "2025-01-17T20:32:08.066529Z", "event": "stderr", "payload": {"text": "SyntaxError: invalid syntax\n"}, "sequence": 25}
+{"executionId": "65186913-392b-4d25-a9ed-3b24e17d1778", "createdAt": "2025-01-17T20:32:08.076366Z", "event": "stderr", "payload": {"text": ""}, "sequence": 26}
+{"executionId": "65186913-392b-4d25-a9ed-3b24e17d1778", "createdAt": "2025-01-17T20:32:08.194356Z", "event": "stdout", "payload": {"text": "[ABSTRA] 2025-01-17 17:32:08 - Execution failed"}, "sequence": 27}
+{"executionId": "65186913-392b-4d25-a9ed-3b24e17d1778", "createdAt": "2025-01-17T20:32:08.197476Z", "event": "stdout", "payload": {"text": "\n"}, "sequence": 28}

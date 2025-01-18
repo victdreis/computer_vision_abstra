@@ -1,0 +1,10 @@
+{"executionId": "7346c052-9cee-4c3d-9ba5-dd20b639d9fc", "createdAt": "2025-01-17T20:43:17.914328Z", "event": "stdout", "payload": {"text": "[ABSTRA] 2025-01-17 17:43:17 - Execution started"}, "sequence": 53}
+{"executionId": "7346c052-9cee-4c3d-9ba5-dd20b639d9fc", "createdAt": "2025-01-17T20:43:17.918106Z", "event": "stdout", "payload": {"text": "\n"}, "sequence": 54}
+{"executionId": "7346c052-9cee-4c3d-9ba5-dd20b639d9fc", "createdAt": "2025-01-17T20:43:18.015565Z", "event": "stderr", "payload": {"text": "Traceback (most recent call last):\n"}, "sequence": 55}
+{"executionId": "7346c052-9cee-4c3d-9ba5-dd20b639d9fc", "createdAt": "2025-01-17T20:43:18.024275Z", "event": "stderr", "payload": {"text": ""}, "sequence": 56}
+{"executionId": "7346c052-9cee-4c3d-9ba5-dd20b639d9fc", "createdAt": "2025-01-17T20:43:18.028461Z", "event": "stderr", "payload": {"text": "  File \"/home/victoriareis/\u00c1rea de Trabalho/formacao/vision_api_project/mvp_.py\", line 4, in <module>\n    from process_document import process_document  # Refer\u00eancia ao script para processamento\n"}, "sequence": 57}
+{"executionId": "7346c052-9cee-4c3d-9ba5-dd20b639d9fc", "createdAt": "2025-01-17T20:43:18.031818Z", "event": "stderr", "payload": {"text": ""}, "sequence": 58}
+{"executionId": "7346c052-9cee-4c3d-9ba5-dd20b639d9fc", "createdAt": "2025-01-17T20:43:18.035580Z", "event": "stderr", "payload": {"text": "ModuleNotFoundError: No module named 'process_document'\n"}, "sequence": 59}
+{"executionId": "7346c052-9cee-4c3d-9ba5-dd20b639d9fc", "createdAt": "2025-01-17T20:43:18.040329Z", "event": "stderr", "payload": {"text": ""}, "sequence": 60}
+{"executionId": "7346c052-9cee-4c3d-9ba5-dd20b639d9fc", "createdAt": "2025-01-17T20:43:18.172944Z", "event": "stdout", "payload": {"text": "[ABSTRA] 2025-01-17 17:43:18 - Execution failed"}, "sequence": 61}
+{"executionId": "7346c052-9cee-4c3d-9ba5-dd20b639d9fc", "createdAt": "2025-01-17T20:43:18.177318Z", "event": "stdout", "payload": {"text": "\n"}, "sequence": 62}

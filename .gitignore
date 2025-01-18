@@ -22,3 +22,7 @@ results/output.json
 # Outros
 .env
 .txt
+
+venv_test/
+venv/
+vision_api_project/test_env/

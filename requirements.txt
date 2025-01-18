@@ -1,1 +1,4 @@
 abstra==3.5.1
+protobuf==5.29.3
+google-cloud-vision==3.9.0
+google-cloud-language==2.16.0
