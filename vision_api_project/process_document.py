@@ -80,7 +80,6 @@ def process_document(image_path, document_type):
             "Informações Organizadas": organized_data
         }
     else:
-        # Apenas imprime o texto visível para documentos sem regex
         return {
             "Tipo de Documento": document_type,
             "Texto Visível": "\n".join(visible_information)

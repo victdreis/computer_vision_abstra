@@ -2,22 +2,22 @@ import json
 from vision_api_project.process_document import process_document
 
 if __name__ == "__main__":
-    # Caminho da imagem de exemplo
-    image_path = "certidao_casamento2.jpeg"  # Substitua pelo caminho real
-    document_type = "Certidão de Casamento"  # Pode ser "RG", "CPF", "CNH", etc.
+    # Example image path
+    image_path = "certidao_casamento2.jpeg"  # Replace with the actual path
+    document_type = "Certidão de Casamento"  # Could be "RG", "CPF", "CNH", etc.
 
     try:
-        # Processar o documento e organizar os dados
-        resultado = process_document(image_path, document_type)
+        # Process the document and organize data
+        result = process_document(image_path, document_type)
 
-        # Exibir resultado
-        print(json.dumps(resultado, indent=4, ensure_ascii=False))
+        # Display the result
+        print(json.dumps(result, indent=4, ensure_ascii=False))
 
-        # Salvar em um arquivo JSON
+        # Save the result to a JSON file
         with open("results/output.json", "w", encoding="utf-8") as f:
-            json.dump(resultado, f, ensure_ascii=False, indent=4)
+            json.dump(result, f, ensure_ascii=False, indent=4)
 
         print("Processamento concluído! Resultado salvo em 'results/output.json'.")
-
     except Exception as e:
         print(f"Erro ao processar o documento: {e}")
+
