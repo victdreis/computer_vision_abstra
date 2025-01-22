@@ -12,100 +12,76 @@ def extract_field(pattern, text):
     match = re.search(pattern, text)
     return match.group(0) if match else None
 
-# Funções específicas para documentos
-def process_rg_cnh(visible_information):
-    """Processa RG e CNH para verificar dados legíveis."""
-    data = {
-        "RG": None,
+def organize_information(visible_information, nlp_entities):
+    """Organize fields using both visible information and NLP entities."""
+    organized_data = {
+        "Nome": None,
         "CPF": None,
-        "Data de Expedição": None
-    }
-    
-    for line in visible_information:
-        if not data["CPF"]:
-            data["CPF"] = extract_field(r"\d{3}\.\d{3}\.\d{3}-\d{2}", line)
-        if not data["RG"]:
-            data["RG"] = extract_field(r"\d{2}\.\d{3}\.\d{3}-\d{1}", line)
-        if not data["Data de Expedição"]:
-            data["Data de Expedição"] = extract_field(r"\d{2}/\d{2}/\d{4}", line)
-    
-    return data
-
-def process_certidao_nascimento(visible_information):
-    """Processa certidão de nascimento para estado civil, cidade e estado de nascimento."""
-    data = {
-        "Estado Civil": None,
-        "Naturalidade": None
-    }
-    
-    for line in visible_information:
-        if "SOLTEIRO" in line.upper() and not data["Estado Civil"]:
-            data["Estado Civil"] = "Solteiro"
-        if "NATURALIDADE" in line.upper() and not data["Naturalidade"]:
-            data["Naturalidade"] = line.split(":")[-1].strip()
-    
-    return data
-
-def process_certidao_casamento(visible_information):
-    """Processa certidão de casamento para estado civil, nome atual e regime."""
-    data = {
-        "Estado Civil": None,
-        "Nome Atual": None,
-        "Regime de Casamento": None
+        "RG": None,
+        "Data de Nascimento": None,
+        "Data de Expedição": None,
+        "Naturalidade": None,
+        "Filiação": [],
     }
 
+    # Extract CPF and RG
     for line in visible_information:
-        if "DIVÓRCIO" in line.upper():
-            data["Estado Civil"] = "Divorciado"
-        elif "CASADO" in line.upper():
-            data["Estado Civil"] = "Casado"
-        if "PASSOU A ASSINAR" in line.upper():
-            data["Nome Atual"] = extract_field(r"PASSOU A ASSINAR:\s*(.+)", line)
-        if "REGIME" in line.upper():
-            if "COMUNHÃO PARCIAL" in line.upper():
-                data["Regime de Casamento"] = "Comunhão Parcial - APTO"
-            elif "COMUNHÃO TOTAL" in line.upper():
-                data["Regime de Casamento"] = "Comunhão Total - APTO"
-            elif "SEPARAÇÃO TOTAL" in line.upper():
-                if "PACTO" in line.upper():
-                    data["Regime de Casamento"] = "Separação Total - Pacto Requerido"
+        if not organized_data["CPF"]:
+            organized_data["CPF"] = extract_field(r"\d{3}\.\d{3}\.\d{3}-\d{2}", line)
+        if not organized_data["RG"]:
+            organized_data["RG"] = extract_field(r"\d{2}\.\d{3}\.\d{3}-\d{1}", line)
+
+    # Extract other fields using proximity-based heuristics
+    for i, line in enumerate(visible_information):
+        line_upper = line.upper()
+        if "NOME" in line_upper and not organized_data["Nome"]:
+            possible_name = visible_information[i + 1] if i + 1 < len(visible_information) else None
+            if possible_name and is_valid_name(possible_name):
+                organized_data["Nome"] = possible_name
+        elif "DATA DE NASCIMENTO" in line_upper and not organized_data["Data de Nascimento"]:
+            organized_data["Data de Nascimento"] = extract_field(r"\d{2}/\d{2}/\d{4}", line)
+        elif "DATA DE EXPEDIÇÃO" in line_upper and not organized_data["Data de Expedição"]:
+            organized_data["Data de Expedição"] = extract_field(r"\d{2}/\d{2}/\d{4}", line)
+        elif "NATURALIDADE" in line_upper and not organized_data["Naturalidade"]:
+            organized_data["Naturalidade"] = visible_information[i + 1] if i + 1 < len(visible_information) else None
+        elif "FILIAÇÃO" in line_upper:
+            for j in range(i + 1, len(visible_information)):
+                if is_valid_name(visible_information[j]):
+                    organized_data["Filiação"].append(visible_information[j])
                 else:
-                    data["Regime de Casamento"] = "Separação Total"
+                    break
 
-    return data
+    # Use NLP entities for validation and enhancement
+    for entity, entity_type in nlp_entities.items():
+        if entity_type == "PERSON":
+            if not organized_data["Nome"]:
+                organized_data["Nome"] = entity
+            elif entity not in organized_data["Filiação"]:
+                organized_data["Filiação"].append(entity)
+        elif entity_type == "LOCATION" and not organized_data["Naturalidade"]:
+            organized_data["Naturalidade"] = entity
 
-def process_comprovante_endereco(visible_information):
-    """Processa comprovante de endereço para validar dados."""
-    data = {
-        "Validade": "Inapto",
-        "Região Limítrofe": None
-    }
+    # Remove duplicates and ensure valid names in Filiação
+    organized_data["Filiação"] = list(set(organized_data["Filiação"]))
+    organized_data["Filiação"] = [name for name in organized_data["Filiação"] if is_valid_name(name)]
 
-    for line in visible_information:
-        if "60 DIAS" in line.upper():
-            data["Validade"] = "Apto"
-        if "REGIÃO LIMÍTROFE" in line.upper():
-            data["Região Limítrofe"] = line.split(":")[-1].strip()
+    return {k: v for k, v in organized_data.items() if v}
 
-    return data
-
-def process_default(visible_information):
-    """Processa documentos não específicos imprimindo todo o texto visível."""
-    return {"Texto Visível": "\n".join(visible_information)}
-
-# Função principal
 def process_document(image_path, document_type):
-    """Processa o documento baseado no tipo especificado."""
+    """Processes a document image to extract and organize information."""
     extracted_text = google_vision_extract(image_path)
     visible_information = list_visible_information(extracted_text)
 
-    if document_type == "RG ou CNH":
-        return process_rg_cnh(visible_information)
-    elif document_type == "Certidão de Nascimento":
-        return process_certidao_nascimento(visible_information)
-    elif document_type == "Certidão de Casamento":
-        return process_certidao_casamento(visible_information)
-    elif document_type == "Comprovante de Endereço":
-        return process_comprovante_endereco(visible_information)
+    if document_type in ["RG", "CNH", "RG ou CNH"]:
+        nlp_entities = google_nlp_analyze_entities(extracted_text)
+        organized_data = organize_information(visible_information, nlp_entities)
+        return {
+            "Tipo de Documento": document_type,
+            "Informações Organizadas": organized_data
+        }
     else:
-        return process_default(visible_information)
+        # Apenas imprime o texto visível para documentos sem regex
+        return {
+            "Tipo de Documento": document_type,
+            "Texto Visível": "\n".join(visible_information)
+        }

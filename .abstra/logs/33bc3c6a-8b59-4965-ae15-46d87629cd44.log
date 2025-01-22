@@ -1,0 +1,4 @@
+{"executionId": "33bc3c6a-8b59-4965-ae15-46d87629cd44", "createdAt": "2025-01-22T16:49:34.459275Z", "event": "stdout", "payload": {"text": "[ABSTRA] 2025-01-22 13:49:34 - Execution started"}, "sequence": 37}
+{"executionId": "33bc3c6a-8b59-4965-ae15-46d87629cd44", "createdAt": "2025-01-22T16:49:34.462095Z", "event": "stdout", "payload": {"text": "\n"}, "sequence": 38}
+{"executionId": "33bc3c6a-8b59-4965-ae15-46d87629cd44", "createdAt": "2025-01-22T17:03:14.027680Z", "event": "stdout", "payload": {"text": "[ABSTRA] 2025-01-22 14:03:14 - Execution abandoned"}, "sequence": 39}
+{"executionId": "33bc3c6a-8b59-4965-ae15-46d87629cd44", "createdAt": "2025-01-22T17:03:14.031122Z", "event": "stdout", "payload": {"text": "\n"}, "sequence": 40}
