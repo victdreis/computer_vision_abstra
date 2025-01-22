@@ -3,8 +3,8 @@ from vision_api_project.process_document import process_document
 
 if __name__ == "__main__":
     # Caminho da imagem de exemplo
-    image_path = "data/00018415_in.jpg"  # Substitua pelo caminho real
-    document_type = "RG"  # Pode ser "RG", "CPF", "CNH", etc.
+    image_path = "certidao_casamento2.jpeg"  # Substitua pelo caminho real
+    document_type = "Certidão de Casamento"  # Pode ser "RG", "CPF", "CNH", etc.
 
     try:
         # Processar o documento e organizar os dados
