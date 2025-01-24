@@ -1,86 +1,155 @@
-import re
+import json
+from openai import OpenAI
 from .google_vision import google_vision_extract
-from .utils import google_nlp_analyze_entities, list_visible_information
+from .utils import list_visible_information
 
-# Funções auxiliares
-def is_valid_name(text):
-    """Check if a text is a valid name."""
-    return bool(re.match(r"^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$", text)) and len(text.split()) > 1
+# Load the API key from the JSON configuration file
+with open("config.json", "r") as config_file:
+    config = json.load(config_file)
 
-def extract_field(pattern, text):
-    """Extract a field from text using a regex pattern."""
-    match = re.search(pattern, text)
-    return match.group(0) if match else None
+api_key = config["openai_api_key"]
 
-def organize_information(visible_information, nlp_entities):
-    """Organize fields using both visible information and NLP entities."""
-    organized_data = {
-        "Nome": None,
-        "CPF": None,
-        "RG": None,
-        "Data de Nascimento": None,
-        "Data de Expedição": None,
-        "Naturalidade": None,
-        "Filiação": [],
-    }
+# Configure the OpenAI API
+client = OpenAI(api_key=api_key)
 
-    # Extract CPF and RG
-    for line in visible_information:
-        if not organized_data["CPF"]:
-            organized_data["CPF"] = extract_field(r"\d{3}\.\d{3}\.\d{3}-\d{2}", line)
-        if not organized_data["RG"]:
-            organized_data["RG"] = extract_field(r"\d{2}\.\d{3}\.\d{3}-\d{1}", line)
+def gpt_extract_information(extracted_text, document_type):
+    """Uses GPT to extract organized information from the extracted text."""
+    if document_type == "Certidão de Casamento":
+        prompt = f"""
+        Extraia as seguintes informações de uma certidão de casamento com base no texto abaixo:
+        - Nome dos noivos
+        - Data do casamento
+        - Regime de bens
+        - Nome alterado (se algum dos noivos mudou de nome após o casamento)
+        - Estado civil antes do casamento (solteiro, divorciado, etc.)
 
-    # Extract other fields using proximity-based heuristics
-    for i, line in enumerate(visible_information):
-        line_upper = line.upper()
-        if "NOME" in line_upper and not organized_data["Nome"]:
-            possible_name = visible_information[i + 1] if i + 1 < len(visible_information) else None
-            if possible_name and is_valid_name(possible_name):
-                organized_data["Nome"] = possible_name
-        elif "DATA DE NASCIMENTO" in line_upper and not organized_data["Data de Nascimento"]:
-            organized_data["Data de Nascimento"] = extract_field(r"\d{2}/\d{2}/\d{4}", line)
-        elif "DATA DE EXPEDIÇÃO" in line_upper and not organized_data["Data de Expedição"]:
-            organized_data["Data de Expedição"] = extract_field(r"\d{2}/\d{2}/\d{4}", line)
-        elif "NATURALIDADE" in line_upper and not organized_data["Naturalidade"]:
-            organized_data["Naturalidade"] = visible_information[i + 1] if i + 1 < len(visible_information) else None
-        elif "FILIAÇÃO" in line_upper:
-            for j in range(i + 1, len(visible_information)):
-                if is_valid_name(visible_information[j]):
-                    organized_data["Filiação"].append(visible_information[j])
-                else:
-                    break
+        Texto da certidão:
+        {extracted_text}
 
-    # Use NLP entities for validation and enhancement
-    for entity, entity_type in nlp_entities.items():
-        if entity_type == "PERSON":
-            if not organized_data["Nome"]:
-                organized_data["Nome"] = entity
-            elif entity not in organized_data["Filiação"]:
-                organized_data["Filiação"].append(entity)
-        elif entity_type == "LOCATION" and not organized_data["Naturalidade"]:
-            organized_data["Naturalidade"] = entity
+        Responda em JSON com o formato:
+        {{
+            "Nome dos Noivos": ["Noivo", "Noiva"],
+            "Data do Casamento": "",
+            "Regime de Bens": "",
+            "Nome Alterado": ["Nome anterior -> Nome atual"],
+            "Estado Civil Antes do Casamento": ["Estado civil do Noivo", "Estado civil da Noiva"]
+        }}
+        """
+    elif document_type == "CNH":
+        prompt = f"""
+        Extraia as seguintes informações de uma CNH (Carteira Nacional de Habilitação) com base no texto abaixo:
+        - Nome completo
+        - RG
+        - CPF
+        - Filiação (nomes do pai e da mãe)
+        - Data de validade da CNH
+        - Local de emissão
 
-    # Remove duplicates and ensure valid names in Filiação
-    organized_data["Filiação"] = list(set(organized_data["Filiação"]))
-    organized_data["Filiação"] = [name for name in organized_data["Filiação"] if is_valid_name(name)]
+        Texto da CNH:
+        {extracted_text}
 
-    return {k: v for k, v in organized_data.items() if v}
+        Responda em JSON com o formato:
+        {{
+            "Nome": "",
+            "RG": "",
+            "CPF": "",
+            "Filiação": ["Nome do Pai", "Nome da Mãe"],
+            "Validade": "",
+            "Local de Emissão": ""
+        }}
+        """
+    elif document_type == "Comprovante de Endereço":
+        prompt = f"""
+        Extraia as seguintes informações de um comprovante de endereço com base no texto abaixo:
+        - Nome completo do titular do comprovante
+        - Endereço completo (incluindo rua, número, bairro, cidade, estado e CEP)
+
+        Texto do comprovante:
+        {extracted_text}
+
+        Responda em JSON com o formato:
+        {{
+            "Nome Completo": "",
+            "Endereço Completo": ""
+        }}
+        """
+    elif document_type == "CTPS":
+        prompt = f"""
+        Extraia as seguintes informações de uma CTPS (Carteira de Trabalho e Previdência Social) com base no texto abaixo:
+        - Nome completo do titular
+        - Ocupação atual (cargo ou função descrito no documento)
+        - Remunerações (valores salariais mencionados, incluindo períodos de pagamento)
+
+        Texto da CTPS:
+        {extracted_text}
+
+        Responda em JSON com o formato:
+        {{
+            "Nome": "",
+            "Ocupação": "",
+            "Remunerações": [
+                {{
+                    "Período": "",
+                    "Valor": ""
+                }}
+            ]
+        }}
+        """
+    else:
+        # Default for generic documents
+        prompt = f"""
+        Extraia as seguintes informações de um documento do tipo {document_type} com base no texto abaixo:
+        - Nome
+        - CPF
+        - RG
+        - Data de Nascimento
+        - Data de Expedição
+        - Naturalidade
+        - Filiação (nome do pai e da mãe, se disponíveis)
+
+        Texto do documento:
+        {extracted_text}
+
+        Responda em JSON com o formato:
+        {{
+            "Nome": "",
+            "CPF": "",
+            "RG": "",
+            "Data de Nascimento": "",
+            "Data de Expedição": "",
+            "Naturalidade": "",
+            "Filiação": ["Nome do Pai", "Nome da Mãe"]
+        }}
+        """
+
+    # Make the request to GPT
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are an assistant that organizes document information."},
+            {"role": "user", "content": prompt}
+        ]
+    )
+
+    # Return the processed response
+    return json.loads(response.choices[0].message.content)
+
 
 def process_document(image_path, document_type):
     """Processes a document image to extract and organize information."""
-    extracted_text = google_vision_extract(image_path)
-    visible_information = list_visible_information(extracted_text)
+    try:
+        # Extract visible text from the image
+        extracted_text = google_vision_extract(image_path)
+        visible_information = "\n".join(list_visible_information(extracted_text))
 
-    if document_type in ["RG", "CNH", "RG ou CNH"]:
-        nlp_entities = google_nlp_analyze_entities(extracted_text)
-        organized_data = organize_information(visible_information, nlp_entities)
+        # Use GPT to organize the information
+        organized_data = gpt_extract_information(visible_information, document_type)
+
         return {
             "Tipo de Documento": document_type,
             "Informações Organizadas": organized_data
         }
-    else:
+    except Exception as e:
         return {
-            "Tipo de Documento": document_type,
-            "Texto Visível": "\n".join(visible_information)
+            "Erro": f"Ocorreu um erro ao processar o documento: {e}"
         }

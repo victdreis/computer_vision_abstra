@@ -26,3 +26,5 @@ results/output.json
 venv_test/
 venv/
 vision_api_project/test_env/
+
+*.log

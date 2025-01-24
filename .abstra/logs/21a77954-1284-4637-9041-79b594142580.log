@@ -1,0 +1,2 @@
+{"executionId": "21a77954-1284-4637-9041-79b594142580", "createdAt": "2025-01-24T14:08:36.114946Z", "event": "stdout", "payload": {"text": "[ABSTRA] 2025-01-24 11:08:36 - Execution started"}, "sequence": 25}
+{"executionId": "21a77954-1284-4637-9041-79b594142580", "createdAt": "2025-01-24T14:08:36.117632Z", "event": "stdout", "payload": {"text": "\n"}, "sequence": 26}
