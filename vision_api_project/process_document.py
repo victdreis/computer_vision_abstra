@@ -35,6 +35,25 @@ def gpt_extract_information(extracted_text, document_type):
             "Estado Civil Antes do Casamento": ["Estado civil do Noivo", "Estado civil da Noiva"]
         }}
         """
+    elif document_type == "Certidão de Nascimento":
+        prompt = f"""
+        Extraia as seguintes informações de uma Certidão de Nascimento com base no texto abaixo:
+        - Nome do titular do documento
+        - Data de nascimento
+        - Naturalidade
+        - Filiação (nome do pai e da mãe, se disponíveis)
+
+        Texto da certidão:
+        {extracted_text}
+
+        Responda em JSON com o formato:
+        {{
+            "Nome": "",
+            "Data de Nascimento": "",
+            "Naturalidade": "",
+            "Filiação": ["Nome do Pai", "Nome da Mãe"]
+        }}
+        """
     elif document_type == "CNH":
         prompt = f"""
         Extraia as seguintes informações de uma CNH (Carteira Nacional de Habilitação) com base no texto abaixo:
@@ -95,6 +114,65 @@ def gpt_extract_information(extracted_text, document_type):
             ]
         }}
         """
+    elif document_type == "Holerite":
+        prompt = f"""
+        Extraia as seguintes informações de um holerite com base no texto abaixo:
+        - Nome do funcionário
+        - Salário base
+        - Descontos
+        - Valor líquido
+
+        Texto do holerite:
+        {extracted_text}
+
+        Responda em JSON com o formato:
+        {{
+            "Nome": "",
+            "Salário Base": "",
+            "Descontos": "",
+            "Valor Líquido": ""
+        }}
+        """
+    elif document_type == "Imposto de Renda":
+        prompt = f"""
+        Extraia as seguintes informações de um documento de Imposto de Renda com base no texto abaixo:
+        - Nome do declarante
+        - CPF do declarante
+        - Natureza do rendimento
+        - Valor dos rendimentos
+
+        Texto do documento:
+        {extracted_text}
+
+        Responda em JSON com o formato:
+        {{
+            "Nome": "",
+            "CPF": "",
+            "Natureza do Rendimento": "",
+            "Valor dos Rendimentos": ""
+        }}
+        """
+    elif document_type == "FGTS":
+        prompt = f"""
+        Extraia as seguintes informações de um documento do FGTS com base no texto abaixo:
+        - Nome do trabalhador
+        - Nome das empresas
+        - Valores depositados por cada empresa
+
+        Texto do documento:
+        {extracted_text}
+
+        Responda em JSON com o formato:
+        {{
+            "Nome": "",
+            "Empresas": [
+                {{
+                    "Empresa": "",
+                    "Valor Depositado": ""
+                }}
+            ]
+        }}
+        """
     else:
         # Default for generic documents
         prompt = f"""
@@ -145,8 +223,10 @@ def process_document(image_path, document_type):
         # Use GPT to organize the information
         organized_data = gpt_extract_information(visible_information, document_type)
 
+        # Return the organized data along with visible text
         return {
             "Tipo de Documento": document_type,
+            "Texto Visível": visible_information,
             "Informações Organizadas": organized_data
         }
     except Exception as e:

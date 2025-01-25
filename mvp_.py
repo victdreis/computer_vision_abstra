@@ -17,7 +17,7 @@ document_type = af.read_dropdown(
         "CTPS",
         "Holerite",
         "Imposto de Renda",
-        "Extrato do FGTS"
+        "FGTS"
     ]
 )
 
@@ -34,13 +34,19 @@ if uploaded_file:
         # Process the document
         result = process_document(temp_file_path, document_type)
 
-        # Display the result in a formatted way
-        if isinstance(result, dict) and "Texto Visível" in result:
-            # Display visible text
-            af.display_html(result["Texto Visível"])
-        else:
-            # Display formatted JSON
-            af.display_html("<pre>{}</pre>".format(json.dumps(result, indent=4, ensure_ascii=False)))
+        # Prepare the content to display
+        display_content = "<h3>Resultado:</h3>"
+
+        # Display "Texto Visível" if available
+        display_content += "<h3>Texto Visível:</h3>"
+        display_content += f"<p>{result.get('Texto Visível', 'Texto visível não disponível.')}</p>"
+
+        # Display the organized result as JSON
+        display_content += "<h3>Resultado Organizado:</h3>"
+        display_content += f"<pre>{json.dumps(result.get('Informações Organizadas', {}), indent=4, ensure_ascii=False)}</pre>"
+
+        # Display the final content
+        af.display_html(display_content)
 
     except Exception as e:
         # Display error message
