@@ -3,8 +3,8 @@ from vision_api_project.process_document import process_document
 
 if __name__ == "__main__":
     # Example: path to the image and document type
-    image_path = "certidao_nascimento.jpeg"  # Replace with the path to your image
-    document_type = "Certidão de Nascimento"  # Document type: RG, CPF, Certidão de Casamento, etc.
+    image_path = "00000000_in.jpg"  # Replace with the path to your image
+    document_type = "CNH"  # Document type: RG, CPF, Certidão de Casamento, etc.
 
     try:
         # Processes the document and organizes the extracted data
