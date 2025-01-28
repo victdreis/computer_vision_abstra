@@ -1,23 +1,41 @@
 import json
+import os
 from vision_api_project.process_document import process_document
 
 if __name__ == "__main__":
-    # Example: path to the image and document type
-    image_path = "00000000_in.jpg"  # Replace with the path to your image
-    document_type = "CNH"  # Document type: RG, CPF, Certidão de Casamento, etc.
+    # Define input and output directories
+    input_dirs = ["data/CNH_Aberta", "data/RG_Aberto"]  # List of folders to process
+    results_dir = "results"  # Path to save the JSON output files
 
-    try:
-        # Processes the document and organizes the extracted data
-        result = process_document(image_path, document_type)
+    # Ensure results directory exists
+    os.makedirs(results_dir, exist_ok=True)
 
-        # Displays the result in the terminal
-        print(json.dumps(result, indent=4, ensure_ascii=False))
+    # Process each directory
+    for input_dir in input_dirs:
+        print(f"Processing directory: {input_dir}")
 
-        # Saves the result to a JSON file
-        with open("results/output.json", "w", encoding="utf-8") as f:
-            json.dump(result, f, ensure_ascii=False, indent=4)
+        # Ensure results subdirectory exists for the current input directory
+        sub_results_dir = os.path.join(results_dir, os.path.basename(input_dir))
+        os.makedirs(sub_results_dir, exist_ok=True)
 
-        print("Processamento concluído! Resultado salvo em 'results/output.json'.")  # User-facing message in Portuguese
-    except Exception as e:
-        print(f"Erro ao processar o documento: {e}")  # User-facing error message in Portuguese
+        # Process all files in the current input directory
+        for file_name in os.listdir(input_dir):
+            if file_name.endswith("_in.jpg"):
+                base_name = file_name.replace("_in.jpg", "")
+                image_path = os.path.join(input_dir, file_name)
+                output_file = os.path.join(sub_results_dir, f"{base_name}.json")
 
+                try:
+                    # Processes the document and organizes the extracted data
+                    result = process_document(image_path, "CNH" if "CNH" in input_dir else "RG")
+
+                    # Displays the result in the terminal
+                    print(json.dumps(result, indent=4, ensure_ascii=False))
+
+                    # Saves the result to a JSON file
+                    with open(output_file, "w", encoding="utf-8") as f:
+                        json.dump(result, f, ensure_ascii=False, indent=4)
+
+                    print(f"Processamento concluído para {file_name}! Resultado salvo em '{output_file}'.")
+                except Exception as e:
+                    print(f"Erro ao processar {file_name}: {e}")
