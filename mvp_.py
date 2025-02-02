@@ -34,23 +34,24 @@ if uploaded_file:
         # Process the document
         result = process_document(temp_file_path, document_type)
 
-        # Prepare the content to display
+        print(f"✅ DEBUG: Resultado retornado pelo process_document:\n{json.dumps(result, indent=4, ensure_ascii=False)}")
+
+        # Ensure that "Texto Visível" is available
+        visible_text = result.get("Texto Visível", "Nenhum texto extraído.")
+        structured_info = result.get("Informações Organizadas", {})
+
+        # Prepare display content
         display_content = "<h3>Resultado:</h3>"
+        display_content += f"<h3>Texto Visível:</h3><p>{visible_text}</p>"
 
-        # Display "Texto Visível" if available
-        display_content += "<h3>Texto Visível:</h3>"
-        display_content += f"<p>{result.get('Texto Visível', 'Texto visível não disponível.')}</p>"
-
-        # Display the organized result as JSON
+        # Display structured JSON
         display_content += "<h3>Resultado Organizado:</h3>"
-        display_content += f"<pre>{json.dumps(result.get('Informações Organizadas', {}), indent=4, ensure_ascii=False)}</pre>"
+        display_content += f"<pre>{json.dumps(structured_info, indent=4, ensure_ascii=False)}</pre>"
 
         # Display the final content
         af.display_html(display_content)
 
     except Exception as e:
-        # Display error message
-        af.display_html(f"<span style='color: red;'>Ocorreu um erro: {e}. Por favor, tente novamente ou contate o suporte.</span>")
-else:
-    # Message when no file is uploaded
-    af.display_html("<span style='color: orange;'>Nenhum arquivo enviado. Por favor, faça o upload para continuar.</span>")
+        print(f"❌ DEBUG: Erro ao processar documento: {e}")
+        af.display_html(f"<span style='color: red;'>Erro ao processar: {e}</span>")
+
