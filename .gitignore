@@ -28,3 +28,6 @@ venv/
 src/test_env/
 
 *.log
+
+results/
+data/
