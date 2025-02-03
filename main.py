@@ -1,8 +1,8 @@
 import json
 import os
 import logging
-from vision_api_project.process_document import process_document
-from vision_api_project.decorators import vote, has_valid_data
+from src.process_document import process_document
+from src.decorators import vote, has_valid_data
 
 # Configure logging for debugging
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
@@ -15,7 +15,7 @@ def process_document_with_vote(image_path, document_type):
 
 if __name__ == "__main__":
     # Define input and output directories
-    input_dirs = ["data/CNH_Aberta", "data/RG_Aberto", "data/Certidão_Casamento", "data/Holerite", "data/FGTS"]
+    input_dirs = ["data/CNH_Aberta", "data/RG_Aberto"]
     results_dir = "results"
 
     # Ensure results directory exists

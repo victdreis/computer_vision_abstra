@@ -1,7 +1,7 @@
 import abstra.forms as af
 from abstra.tasks import send_task
 import json
-from vision_api_project.process_document import process_document
+from src.process_document import process_document
 import tempfile
 
 # Dropdown to select document type

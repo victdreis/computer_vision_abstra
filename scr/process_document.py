@@ -1,4 +1,3 @@
-import json
 from openai import OpenAI
 from .google_vision import google_vision_extract
 from .utils import list_visible_information
