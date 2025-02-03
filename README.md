@@ -12,7 +12,7 @@ VISION_API_PROJECT is a document processing system that extracts structured info
 ## 📂 Project Structure
 ```
 VISION_API_PROJECT/
-│── data/                     # Folder containing input images
+│── data/                     # Folder containing input images (must be created manually)
 │── results/                  # Folder where processed results are saved
 │── src/                      # Source code directory
 │   │── google_vision.py      # Handles text extraction using Google Vision
@@ -54,3 +54,10 @@ To process all documents in the `data/` directory, run:
 python main.py
 ```
 
+### Required Dataset
+Before running the project, create a `data/` directory and populate it with documents from the [Brazilian Identity Document Dataset](https://github.com/ricardobnjunior/Brazilian-Identity-Document-Dataset/tree/master/VIA%20ANNOTATIONS):
+```bash
+mkdir data
+# Add the dataset files inside the data/ directory
+```
+This dataset provides real examples for testing the document extraction process.
