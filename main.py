@@ -8,7 +8,16 @@ from src.decorators import vote, has_valid_data
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
 def process_document_with_vote(image_path, document_type):
-    """Process a document using the voting mechanism if the first attempt fails."""
+    """
+    Process a document using the voting mechanism if the first attempt fails.
+    
+    Args:
+        image_path (str): The file path of the document image.
+        document_type (str): The type of the document (e.g., CNH, RG, etc.).
+    
+    Returns:
+        dict: The processed document data.
+    """
     logging.warning(f"⚠️ Retrying {image_path} with vote(5)...")
     voted_process = vote(5)(process_document)
     return voted_process(image_path, document_type)
@@ -44,10 +53,10 @@ if __name__ == "__main__":
                 document_type = (
                     "CNH" if "CNH" in input_dir else
                     "RG" if "RG" in input_dir else
-                    "Certidão de Casamento" if "Casamento" in input_dir else
-                    "Holerite" if "Holerite" in input_dir else
+                    "Marriage Certificate" if "Casamento" in input_dir else
+                    "Payslip" if "Holerite" in input_dir else
                     "FGTS" if "FGTS" in input_dir else
-                    "Documento Desconhecido"
+                    "Unknown Document"
                 )
 
                 # Process document

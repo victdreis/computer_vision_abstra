@@ -5,23 +5,49 @@ import re
 from difflib import SequenceMatcher
 
 def clean_text(text, preserve_accents=False):
-    """Normalizes text by removing accents (optional), special characters, extra spaces, and converting to lowercase."""
+    """
+    Normalizes text by removing accents (optional), special characters, extra spaces, and converting to lowercase.
+    
+    Args:
+        text (str): The input text to be cleaned.
+        preserve_accents (bool): If True, keeps accents; otherwise, removes them.
+    
+    Returns:
+        str: The cleaned and normalized text.
+    """
     if not text:
         return ""
     text = text.strip()
     if not preserve_accents:
         text = ''.join(c for c in unicodedata.normalize('NFKD', text) if not unicodedata.combining(c))
-
+    
     text = re.sub(r"[^a-zA-Z0-9\s]", "", text)  
     text = " ".join(text.split())  
     return text.lower()
 
 def similar(a, b):
-    """Checks similarity between two normalized texts using SequenceMatcher."""
+    """
+    Checks similarity between two normalized texts using SequenceMatcher.
+    
+    Args:
+        a (str): First text.
+        b (str): Second text.
+    
+    Returns:
+        float: A similarity ratio between 0 and 1.
+    """
     return SequenceMatcher(None, a, b).ratio()
 
 def extract_ground_truth_text(txt_path):
-    """Extracts values from ground truth file and normalizes them."""
+    """
+    Extracts values from a ground truth file and normalizes them.
+    
+    Args:
+        txt_path (str): Path to the ground truth text file.
+    
+    Returns:
+        set: A set of normalized text values from the file.
+    """
     with open(txt_path, "r", encoding="utf-8", errors="replace") as f:
         lines = f.readlines()
     
@@ -29,7 +55,16 @@ def extract_ground_truth_text(txt_path):
     return set(clean_text(t, preserve_accents=True) for t in transcriptions)
 
 def check_field_accuracy(organized_info, ground_truth_text):
-    """Verifies if extracted fields match ground truth with a flexible similarity threshold."""
+    """
+    Verifies if extracted fields match the ground truth with a flexible similarity threshold.
+    
+    Args:
+        organized_info (dict): Extracted fields from a document.
+        ground_truth_text (set): Ground truth values.
+    
+    Returns:
+        tuple: A dictionary of matched results and the overall accuracy.
+    """
     results = {}
     total_fields = 0
     matched_fields = 0
@@ -124,27 +159,3 @@ if __name__ == "__main__":
             except Exception as e:
                 print(f"❌ Error processing {file_name}: {e}")
                 failed_files.append({"file_name": file_name, "error": str(e)})
-
-    average_accuracies = {
-        key: (accuracy_sums[key] / len(summary[key])) if summary[key] else 0
-        for key in data_dirs.keys()
-    }
-    processed_percentages = {
-        doc_type: (stats["processed"] / stats["total"]) * 100 if stats["total"] > 0 else 0
-        for doc_type, stats in document_stats.items()
-    }
-
-    summary_file = os.path.join(results_dir, "summary.json")
-    with open(summary_file, "w", encoding="utf-8") as f:
-        json.dump({
-            "average_accuracy": sum(accuracy_sums.values()) / processed_files if processed_files > 0 else 0,
-            "processed_percentage": (processed_files / total_files) * 100 if total_files > 0 else 0,
-            "total_files": total_files,
-            "processed_files": processed_files,
-            "failed_files": failed_files,
-            "document_results": summary,
-            **{f"{doc_type}_average_accuracy": average_accuracies[doc_type] for doc_type in data_dirs.keys()},
-            **{f"{doc_type}_processed_percentage": processed_percentages[doc_type] for doc_type in data_dirs.keys()}
-        }, f, ensure_ascii=False, indent=4)
-
-    print(f"📊 Summary saved in {summary_file}")
