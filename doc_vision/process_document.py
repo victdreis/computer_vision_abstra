@@ -2,7 +2,7 @@ from openai import OpenAI
 from .google_vision import google_vision_extract
 from .utils import list_visible_information
 from .decorators import vote, has_valid_data  
-
+import json
 
 # Load the API key from the JSON configuration file
 with open("config.json", "r") as config_file:

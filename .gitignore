@@ -25,7 +25,7 @@ results/output.json
 
 venv_test/
 venv/
-src/test_env/
+doc_vision/test_env/
 
 *.log
 

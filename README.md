@@ -15,7 +15,7 @@ VISION_API_PROJECT is a document processing system that extracts structured info
 VISION_API_PROJECT/
 │── data/                     # Folder containing input images (must be created manually)
 │── results/                  # Folder where processed results are saved
-│── src/                      # Source code directory
+│── doc_vision/                      # doc_vision code directory
 │   │── google_vision.py      # Handles text extraction using Google Vision
 │   │── process_document.py   # Core processing logic (text extraction & GPT processing)
 │   │── document_organizer.py # Helps structure extracted data

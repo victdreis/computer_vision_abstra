@@ -1,8 +1,8 @@
 import json
 import os
 import logging
-from src.process_document import process_document
-from src.decorators import vote, has_valid_data
+from doc_vision.process_document import process_document
+from doc_vision.decorators import vote, has_valid_data
 
 # Configure logging for debugging
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")

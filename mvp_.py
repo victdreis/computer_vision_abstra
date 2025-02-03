@@ -1,7 +1,7 @@
+import json
 import abstra.forms as af
 from abstra.tasks import send_task
-import json
-from src.process_document import process_document
+from doc_vision.process_document import process_document
 import tempfile
 
 # Dropdown to select document type
