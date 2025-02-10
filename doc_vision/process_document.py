@@ -198,6 +198,37 @@ def gpt_extract_information(extracted_text, document_type):
         }}
         """,
 
+        "Driver's License": f"""
+        Extraia as seguintes informações de um documento de Driver's License com base no texto abaixo:
+        - Nome
+        - Número da CNH
+        - Data de Nascimento
+        - Endereço
+        - Classe
+        - Data de Expiração
+        - Data de Emissão
+        - Altura
+        - Sexo
+        - Cor dos Olhos
+
+        Texto do documento:
+        {extracted_text}
+
+        Responda em JSON com o formato:
+        {{
+            "Nome": "",
+            "Número da CNH": "",
+            "Data de Nascimento": "",
+            "Endereço": "",
+            "Classe": "",
+            "Data de Expiração": "",
+            "Data de Emissão": "",
+            "Altura": "",
+            "Sexo": "",
+            "Cor dos Olhos": ""
+        }}
+        """,
+
         "FGTS": f"""
         Extraia as seguintes informações de um extrato do FGTS com base no texto abaixo:
         - Nome do trabalhador

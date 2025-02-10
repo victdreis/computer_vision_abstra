@@ -12,7 +12,7 @@ document_type = af.read_dropdown(
     options=[
         "RG", "CPF", "CNH", "Certidão de Nascimento",
         "Certidão de Casamento", "Comprovante de Endereço",
-        "CTPS", "Holerite", "Imposto de Renda", "FGTS"
+        "CTPS", "Holerite", "Imposto de Renda", "FGTS", "Driver's License"
     ]
 )
 
